@@ -154,3 +154,27 @@
       }
   })
 }
+function authRetriever(){
+  var search_query = {
+    _id : $("#findEmail").val(),
+  }
+  $.ajax({
+    type : "GET",
+    contentType: "application/json",
+    url : "/admin/findEmail",
+    data : search_query,
+    dataType:"json",
+    success: function(result){
+      $('#result2 ul').empty();
+      $('#emailResult').transition("scale","500ms");
+      result.forEach(function(item){
+        $('#result2 .list-group').append(item.email);
+      })
+      console.log("Success: ", result);
+    },
+    error : function(e) {
+      $("#result").html("<strong>Error</strong>");
+      console.log("ERROR: ", e);
+    }
+  });  
+}

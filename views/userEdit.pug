@@ -32,6 +32,14 @@ html
         span.hamburger-patty
         span.hamburger-bun
     .ui.container
+      .ui.error.message#message
+        i.close.icon#message-close
+        .header There was some error encountered with submission
+        .header#serverError
+        .list
+          li Phone Number and Display Name must not be empty while submitting.
+          li Please Follow Standard Telephone Number Rule e.g. +91 followed by (10 digit number).
+        .ui.tiny.button.blue#rld Reload
       h3.header Note you're currently editing User :
         if user.email
           span#email_id #{user.email}
@@ -110,6 +118,14 @@ html
     $(document).ready(function(){
       $("#grp-1 ").hide();
       $("#grp-2 ").hide();
+      $("#message").hide();
+      $("#message-close").click(function(){
+        $("#message").hide();
+      })
+      $("#rld").click(function(){
+        $("#message").hide();
+        authRetriever();
+      })
       $("#basicAuthBtn").click(function(){
         $('#seg-1 :input').attr('readonly',false);
         $("#grp-1 ").show();

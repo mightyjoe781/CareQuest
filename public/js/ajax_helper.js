@@ -190,6 +190,7 @@ function authRetriever(){
       $("#seg-1").removeClass("loading");
       $("#seg-1").addClass("disabled");
       console.log("ERROR: ", e);
+      
     }
   });  
 }
@@ -213,6 +214,10 @@ function authUpdater(){
     success: function(result){
       console.log(result)
       //clearing the  space
+      if(result.message){
+        $("#message").show();
+        $("#serverError")[0].textContent =result.message;
+      }
       $("#displayName").val("");
       $("#email").val("");
       $("#phoneNumber").val("");
@@ -238,6 +243,7 @@ function authUpdater(){
       $("#seg-1").removeClass("loading");
       $("#seg-1").addClass("disabled");
       console.log("ERROR: ", e);
+      
     }
   });  
 }

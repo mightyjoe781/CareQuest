@@ -78,6 +78,11 @@
         $('#id_verif').val(result.id_verif);
         $('#object_id').val(result.object_id);
         $('#time').val(result.time);
+        if(result.admin){
+          $("#admin")[0].textContent = "Admin"
+        } else {
+          $("#admin")[0].textContent = "General User"
+        }
         $("#seg-2").removeClass("loading")
         console.log("Success: ", result);
         getHospital(result.object_id);
@@ -252,6 +257,11 @@ function userRetriever(){
       $('#object_id').val(result.object_id);
       $('#time').val(result.time);
       $("#seg-2").removeClass("loading")
+      if(result.admin){
+        $("#admin")[0].textContent = "Admin"
+      } else {
+        $("#admin")[0].textContent = "General User"
+      }
       console.log("Success: ", result);
       getHospital(result.object_id);
     },
@@ -264,27 +274,27 @@ function userRetriever(){
 }
 function userUpdater(){
   $("#seg-2").addClass("loading");
+  
   var search_query = {
-    uid : $("#uid").text()
+    uid : $("#uid").text(),
+    email : $("#email_id").text(),
+    emailVerified : $("#emailVerified")[0].checked,
+    id_verif : $("#id_verif").val(),
+    object_id : $("#object_id").val(),
+    time : $("#time").val()
   }
   $.ajax({
     type : "GET",
     contentType: "application/json",
-    url : "/admin/role",
+    url : "/admin/updateRole",
     data : search_query,
     dataType:"json",
     success: function(result){
-      $('#id_verif').val(result.id_verif);
-      $('#object_id').val(result.object_id);
-      $('#time').val(result.time);
-      $("#seg-2").removeClass("loading")
-      console.log("Success: ", result);
-      getHospital(result.object_id);
+      userRetriever();
     },
     error : function(e) {
       console.log("ERROR: ", e);
-      $("#seg-2").removeClass("loading")
-      $("#seg-2").addClass("disabled");
+      userRetriever();
     }
   });
 }

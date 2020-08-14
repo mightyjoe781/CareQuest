@@ -41,7 +41,7 @@ html
           .meta User UID:
             span#uid #{user.uid}
             span.right.floated.ui.button.blue.tiny#basicAuthBtn Edit
-          br
+            br
           .fields
             .field
               label Display Name
@@ -72,7 +72,8 @@ html
       .ui.segment.loading#seg-2
         .ui.form
           .ui.dividing.header Additional User Details
-          .meta
+          .meta Role : 
+            span#admin
             span.right.floated.ui.button.blue.tiny#addUserBtn Edit
           .fields
             .field
@@ -91,7 +92,6 @@ html
         .ui.form
           .ui.dividing.header Hospital Details
           .meta
-            span.right.floated.ui.button.blue.tiny#hospitalEdit Edit
           .fields
             .field
               label Name
@@ -136,6 +136,7 @@ html
       })
       $("#userSubmit").click(function(){
         //updater user
+        userUpdater();
         $('#seg-2 :input').attr('readonly',true);
         $("#addUserBtn").show();
         $("#grp-2 ").hide();

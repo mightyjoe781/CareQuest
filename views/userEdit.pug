@@ -32,7 +32,9 @@ html
         span.hamburger-patty
         span.hamburger-bun
     .ui.container
-      h3.header Note you're currently editing User : #{(user.displayName)?user.displayName:user.email}
+      h3.header Note you're currently editing User :
+        if user.email
+          span#email_id #{user.email}
       .ui.segment#seg-1
         .ui.form
           .ui.dividing.header Basic Authentication Info
@@ -49,13 +51,21 @@ html
               input#email(type="text", name="email", value=`${user.email}` readonly)
             .field
               label Phone Number
-              input#phoneNumber(text="text",name ="phoneNumber" ,value = `${(user.phoneNumber)?user.phoneNumber:''}` readonly)
+              input#phoneNumber(text="tel",name ="phoneNumber" ,value = `${(user.phoneNumber)?user.phoneNumber:''}` readonly)
             .field
               label Email Verification Status
-              input#emailVerified(type="text",name="emailVerified" , value = `${user.emailVerified}` readonly)
+              if user.emailVerified
+                input#emailVerified(type="checkbox",name="emailVerified" checked readonly)
+              else
+                input#emailVerified(type="checkbox",name="emailVerified" readonly)
             .field
-              label Disable Status
-              input#disabled(type="text",name="disabled" , value = `${user.disabled}` readonly)
+              label Disable Status 
+              if user.disabled
+                input#disabled(type="checkbox",name="disabled" checked readonly)
+              else
+                input#disabled(type="checkbox",name="disabled" readonly )
+          p  Last login :
+            span#loginTime #{user.metadata.lastSignInTime}
           .ui.buttongroup#grp-1(style ={'display':'none'})
             .ui.button.green#authSubmit Submit
             .ui.button.red#authCancel Cancel
@@ -112,12 +122,14 @@ html
       });
       $("#authSubmit").click(function(){
         //updater auth
+        authUpdater();
         $('#seg-1 :input').attr('readonly',true);
         $("#basicAuthBtn").show();
         $("#grp-1 ").hide();
       })
       $("#authCancel").click(function(){
         //retriever auth
+        authRetriever();
         $('#seg-1 :input').attr('readonly',true);
         $("#basicAuthBtn").show();
         $("#grp-1 ").hide();
@@ -130,6 +142,7 @@ html
       })
       $("#userCancel").click(function(){
         //retriever user
+        userRetriever();
         $('#seg-2 :input').attr('readonly',true);
         $("#addUserBtn").show();
         $("#grp-2 ").hide();

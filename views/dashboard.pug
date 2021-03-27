@@ -55,16 +55,16 @@ html
                 .extra.content
                   .ui.input.fluid
                     input#hospital(type="text", placeholder="Name of Hospital ...")
-                    .ui.primary.button.right.floated(onclick="fuzzynameGet();") Search
+                    .ui.primary.button.right.floated(href="#hospitalResult",onclick="fuzzynameGet();") Search
             .card
               .content
                 h4.ui.header Connected Accounts
-                .description Use this to find out which users are connected to a specific users.
+                .description Use this to find out which users are connected to a specific hospitals.
                 hr
                 .extra.content
                   .ui.input.fluid
-                    input(type="text", placeholder="Hospital object ids ...")
-                    .ui.primary.button.right.floated Search
+                    input#findEmail(type="text", placeholder="Hospital object ids ...")
+                    .ui.primary.button.right.floated(onclick="findEmail();") Search
 
             .card
               .content
@@ -72,21 +72,38 @@ html
                 .description Use this manage the users using user Email Accounts!.
                 hr
                 .extra.content
-                  .ui.input.fluid
-                    input(type="text", placeholder="Email Address ...")
-                    .ui.primary.button.right.floated Manage
+                  form(action="/admin/userEdit" , method="POST")
+                    .ui.input.fluid
+                      input#email(name="email",type="text", placeholder="Email Address ...")
+                      button.ui.primary.button.right.floated Manage
             
 
-        .ui.segment
+        div.ui.segment.loading#hospitalResult(style={'display':'none'})
           h2.header Search Results!
-          #result
+            i.close.icon.red#hclose-icon
+          #result1
             .ui.cards.one.fluid
 
-        .ui.segment
+        div.ui.segment#emailResult(style={'display':'none'})
           h2.header Accounts Found!
+            i.close.icon.red#eclose-icon
+          #result2
+            ul.list-group
+        .ui.segment(style={'display':'none'})
+          form#eHospital(action="/admin/hEdit", method="GET")
+            label Hospital Id
+            input#hospital_id(type="text",name="_id")
           
           
-
+  script(src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js")
   script(src="design.js")
   script(src="js/ajax_helper.js")
+  script.
+    $("#eclose-icon").click(function(){
+      $('#emailResult').transition("scale","500ms");
+    })
+    $("#hclose-icon").click(function(){
+      $('#hospitalResult').transition("scale","500ms");
+    })
+
 

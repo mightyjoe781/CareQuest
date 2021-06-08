@@ -120,8 +120,8 @@ We use [github](https://github.com/) for versioning. Versions will be made avail
 
 ## Authors
 
-* **Prashant Jha** - *Backend* - [pjflux2001](https://github.com/pjflux2001)
 * **Sudhanshu Mohan Kashyap** - *Backend And Frontend* - [mightyjoe781](https://github.com/mightyjoe781)
+* **Prashant Jha** - *Backend* - [pjflux2001](https://github.com/pjflux2001)
 * **Umang Barthwal** - *Backend And Frontend* - [barthwalumang](https://github.com/barthwalumang)
 
 ## License
